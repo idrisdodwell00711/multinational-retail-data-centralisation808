@@ -33,11 +33,13 @@ class DataExtractor:
         df_pd_ref_dict = {'card_number':[], 'expiry_date':[], 'card_provider':[], 'date_payment_confirmed':[] }
         
         for page in dfs:
+            dfs_count = 0
             for data in page:
                 count = 0
-                while count < len(dfs[0]):
-                    df_pd_ref_dict[data].append(dfs[0].loc[count, data]) 
-                    count = count +1   
+                while count < len(dfs[dfs_count]):
+                    df_pd_ref_dict[data].append(dfs[dfs_count].loc[count, data]) 
+                    count = count +1
+            dfs_count = dfs_count + 1
         pd_df = pd.DataFrame(df_pd_ref_dict)
 
         return pd_df
@@ -105,13 +107,13 @@ class DataExtractor:
        
 #header = {'x-api-key':'yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX'}       
         
-#test = DataExtractor
+test = DataExtractor
 #test.retrieve_stores_data(test.list_number_of_stores('https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/number_stores', header), header)
 #test.extract_from_s3('s3://data-handling-public/products.csv')
 
 #s3://data-handling-public/products.csv
 #test.extract_from_json('https://data-handling-public.s3.eu-west-1.amazonaws.com/date_details.json')
-#test.retrieve_pdf_data('https://data-handling-public.s3.eu-west-1.amazonaws.com/card_details.pdf')
+test.retrieve_pdf_data('https://data-handling-public.s3.eu-west-1.amazonaws.com/card_details.pdf')
 # endpoint='https://aqj7u5id95.execute-api.eu-west-1.amazonaws.com/prod/number_stores'
 
 

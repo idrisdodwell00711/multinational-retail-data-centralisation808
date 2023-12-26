@@ -38,8 +38,8 @@ class DataCleaning:
             
             # m_d_date_regex_expression = "^((0[1-9])|(1[0-2]))[\/\.\-]*((0[8-9])|(1[1-9]))$"
             # pd_df.loc[~pd_df['expiry_date'].str.match(m_d_date_regex_expression), 'expiry_date'] = np.nan
-            
-            return pd_df
+            clean_pd_df = pd_df.dropna(axis = 0, how='any')
+            return clean_pd_df
         
     def called_clean_store_data(df):
         if __name__ == 'data_cleaning':
