@@ -50,12 +50,13 @@ class DatabaseConnector:
         #upload the df to db
         pd_df.to_sql('dim_card_details',engine, if_exists='replace', index = False)
         
-test = DatabaseConnector
+#test = DatabaseConnector
 
-clean = DataCleaning
-df = DataExtractor
-
-test.upload_to_db(test.init_local_db_engine(test.read_db_creds('pgadmin_creds.yaml')),clean.clean_card_data(df.retrieve_pdf_data('https://data-handling-public.s3.eu-west-1.amazonaws.com/card_details.pdf')))
+# clean = DataCleaning
+# df = DataExtractor
+#test.download_from_db(test.read_db_creds('pgadmin_creds.yaml'), 'dim_card_details')
+#test.upload_to_db(test.init_local_db_engine(test.read_db_creds('pgadmin_creds.yaml')),df.retrieve_pdf_data('https://data-handling-public.s3.eu-west-1.amazonaws.com/card_details.pdf'))
+#test.upload_to_db(test.init_local_db_engine(test.read_db_creds('pgadmin_creds.yaml')),clean.clean_card_data(df.retrieve_pdf_data('https://data-handling-public.s3.eu-west-1.amazonaws.com/card_details.pdf')))
 #test.upload_to_db(test.init_local_db_engine(test.read_db_creds('pgadmin_creds.yaml')),clean.clean_json(df.extract_from_json('https://data-handling-public.s3.eu-west-1.amazonaws.com/date_details.json')))
 #header = {'x-api-key':'yFBQbwXe9J3sd6zWVAMrK6lcxxr0q1lr2PT6DDMX'}
 #test.upload_to_db(test.init_local_db_engine(test.read_db_creds('pgadmin_creds.yaml')), clean.clean_products_data(clean.convert_product_weights(df.extract_from_s3('s3://data-handling-public/products.csv'))))

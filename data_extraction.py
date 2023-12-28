@@ -8,6 +8,9 @@ import pandas as pd
 import re
 import requests
 import tabula
+import numpy as np
+from psycopg2.extensions import register_adapter, AsIs
+register_adapter(np.int64, AsIs)
 
 class DataExtractor:
     def __init__(self, CSV, api, s3):
@@ -31,16 +34,19 @@ class DataExtractor:
         
         #input all the disjoined pdf data into one reference dict
         df_pd_ref_dict = {'card_number':[], 'expiry_date':[], 'card_provider':[], 'date_payment_confirmed':[] }
+        dfs_count = 0
         
         for page in dfs:
-            dfs_count = 0
             for data in page:
                 count = 0
-                while count < len(dfs[dfs_count]):
+                while count < len(dfs[dfs_count]) and dfs_count<len(dfs):
                     df_pd_ref_dict[data].append(dfs[dfs_count].loc[count, data]) 
                     count = count +1
-            dfs_count = dfs_count + 1
+                    
+            dfs_count = dfs_count+1
+
         pd_df = pd.DataFrame(df_pd_ref_dict)
+        pd_df.reset_index(drop = True, inplace = True)
 
         return pd_df
 
